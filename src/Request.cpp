@@ -35,7 +35,7 @@ void DLAPI::Request::execute()
     curl_slist_append(h, headers->getCString("key"));
 
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "name=daniel&project=curl");
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data->getUrlParams().c_str());
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, h); 
     curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);;
 

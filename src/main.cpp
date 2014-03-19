@@ -12,10 +12,9 @@ int main(int argc, char** argv)
     collection.params.setString("name", "mauro");
     collection.params.setNumber("age", 32);
     collection.client = client;
-    // collection.create();
+    collection.create();
 
     std::string params = collection.params.getUrlParams();
-
     DLAPI::Log(params);
 
     return 0;
