@@ -11,6 +11,12 @@ DLAPI::Dictionary::~Dictionary()
 	json = NULL;
 }
 
+void DLAPI::Dictionary::clear()
+{
+	if (json) cJSON_Delete(json);
+	json = cJSON_CreateObject();
+}
+
 void DLAPI::Dictionary::setString(std::string key, std::string value)
 {
 	cJSON* j = cJSON_CreateString(value.c_str()); 
@@ -49,7 +55,7 @@ int DLAPI::Dictionary::getInt(std::string key)
 	return (int)getNumber(key);
 }
 
-std::string DLAPI::Dictionary::getUrlParams()
+std::string DLAPI::Dictionary::toURLParams()
 {
 	std::string r = "";
 
@@ -75,4 +81,16 @@ std::string DLAPI::Dictionary::getUrlParams()
 	}
 
 	return r;
+}
+
+std::string DLAPI::Dictionary::toJSONString()
+{
+	return std::string(cJSON_Print(json));
+}
+
+void DLAPI::Dictionary::fromJSONString(std::string str)
+{
+	if (json) cJSON_Delete(json);
+	json = cJSON_Parse(str.c_str());
+	printf("%s\n", cJSON_Print(json));
 }

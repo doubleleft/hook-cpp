@@ -17,6 +17,8 @@ namespace DLAPI
 
 		std::string method;
 		std::string url;
+		std::string params;
+		std::string query;
 		std::vector<std::string> headers;
 		DLAPI::Dictionary* data;
 		void* response;

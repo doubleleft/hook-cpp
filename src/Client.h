@@ -20,7 +20,7 @@ namespace DLAPI
 		std::string key;
 		std::string appId;
 
-		DLAPI::Request* request(std::string method, std::string segments, DLAPI::Dictionary* params);
+		DLAPI::Request* request(std::string method, std::string segments, DLAPI::Dictionary* paramsDict, std::string query);
 	
 	private:
 		std::vector<std::string> headers;

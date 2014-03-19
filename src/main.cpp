@@ -6,13 +6,26 @@ int main(int argc, char** argv)
 {
     DLAPI::Client* client = new DLAPI::Client("http://dl-api.ddll.co", "q1uU7tFtXnLad6FIGGn2cB+gxcx64/uPoDhqe2Zn5AE=", "1");
 
-    DLAPI::Collection collection;
-    collection.name = "ios";
-    collection.segments = "ios";
-    collection.params.setString("name", "mauro");
-    collection.params.setNumber("age", 32);
-    collection.client = client;
-    collection.create();
+    DLAPI::Collection collection1;
+    collection1.name = "ranking";
+    collection1.params.setString("name", "mauro");
+    collection1.params.setNumber("age", 32);
+    collection1.params.setNumber("score-rio", 10);
+    collection1.params.setNumber("score-sp", 11);
+    collection1.client = client;
+    // collection1.create();
+
+    DLAPI::Collection collection2;
+    collection2.name = "ranking";
+    collection2.params.setString("where", "user_id");
+    collection2.params.setString("value", "232");
+    collection2.client = client;
+    
+    
+    std::string args = "{\"q\":[[\"name\",\"=\",\"mauro\"]]}";
+    collection2.fetch(args);
+
+    // std::string args = DLAPI::Str::format("{\"where\":\"%s\",\"value\":%i}", "age", 32);
 
     return 0;
 }

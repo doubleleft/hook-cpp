@@ -14,11 +14,13 @@ namespace DLAPI
 		~Collection();
 	
 		std::string name;
-		std::string segments;
 		DLAPI::Dictionary params;
 		DLAPI::Client* client;
+		DLAPI::Dictionary result;
 
+		std::string getSegments();
 		void create();
+		void fetch(std::string query);
 	};
 }
 

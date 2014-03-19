@@ -12,7 +12,7 @@ void DLAPI::Log(std::string str, ...)
 
 std::string DLAPI::Str::format(std::string str, ...)
 {
-    char newStr[200];
+    char newStr[2048 * 16];
     va_list vl;
     va_start(vl, str);
     va_end(vl);
