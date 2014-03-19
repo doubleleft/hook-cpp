@@ -14,8 +14,5 @@ int main(int argc, char** argv)
     collection.client = client;
     collection.create();
 
-    std::string params = collection.params.getUrlParams();
-    DLAPI::Log(params);
-
     return 0;
 }

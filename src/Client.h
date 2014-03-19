@@ -2,6 +2,7 @@
 #define dlapi_client_h
 
 #include <iostream>
+#include <vector>
 #include <curl/curl.h>
 #include "Dictionary.h"
 #include "Request.h"
@@ -9,14 +10,6 @@
 
 namespace DLAPI
 {
-	namespace Method
-	{
-		extern const std::string GET;
-		extern const std::string POST;
-		extern const std::string PUT;
-		extern const std::string DELETE;
-	}
-
 	class Client
 	{
 	public:
@@ -30,7 +23,7 @@ namespace DLAPI
 		DLAPI::Request* request(std::string method, std::string segments, DLAPI::Dictionary* params);
 	
 	private:
-		DLAPI::Dictionary headers;
+		std::vector<std::string> headers;
 
 		void init(std::string url, std::string key, std::string appId);
 	};

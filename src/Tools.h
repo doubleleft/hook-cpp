@@ -6,6 +6,14 @@
 
 namespace DLAPI
 {
+	namespace Method
+	{
+		extern const std::string GET;
+		extern const std::string POST;
+		extern const std::string PUT;
+		extern const std::string DELETE;
+	}
+	
 	extern void Log(std::string str, ...);
 
 	class Str
