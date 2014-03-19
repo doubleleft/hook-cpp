@@ -2,6 +2,8 @@
 #define dlapi_request_h
 
 #include <iostream>
+#include <curl/curl.h>
+#include "Dictionary.h"
 
 namespace DLAPI
 {
@@ -10,6 +12,15 @@ namespace DLAPI
 	public:
 		Request();
 		~Request();
+
+		std::string method;
+		std::string url;
+		DLAPI::Dictionary* headers;
+		DLAPI::Dictionary* data;
+		void* response;
+		int error;
+
+		void execute();
 	};
 }
 

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "cJSON.h"
+#include "Tools.h"
 
 namespace DLAPI
 {
@@ -15,8 +16,12 @@ namespace DLAPI
 		void setString(std::string key, std::string value);	
 		void setNumber(std::string key, double value);
 
-		std::string getString(std::string key);	
+		std::string getString(std::string key);
+		const char* getCString(std::string key);
 		double getNumber(std::string key);
+		int getInt(std::string key);
+
+		std::string getUrlParams();
 
 	private:
 		cJSON* json;

@@ -3,12 +3,20 @@
 
 #include <iostream>
 #include <curl/curl.h>
-#include "Request.h"
-#include "Collection.h"
 #include "Dictionary.h"
+#include "Request.h"
+#include "Tools.h"
 
 namespace DLAPI
 {
+	namespace Method
+	{
+		extern const std::string GET;
+		extern const std::string POST;
+		extern const std::string PUT;
+		extern const std::string DELETE;
+	}
+
 	class Client
 	{
 	public:
@@ -19,9 +27,11 @@ namespace DLAPI
 		std::string key;
 		std::string appId;
 
-		DLAPI::Request* request(std::string method, std::string segments, std::string parameters);
+		DLAPI::Request* request(std::string method, std::string segments, DLAPI::Dictionary* params);
 	
 	private:
+		DLAPI::Dictionary headers;
+
 		void init(std::string url, std::string key, std::string appId);
 	};
 }
