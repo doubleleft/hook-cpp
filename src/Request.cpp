@@ -63,6 +63,6 @@ DLAPI::Request::~Request()
 
 void DLAPI::Request::execute()
 {
-	DLAPI::Log("execute %s - url:%s params:%s", method.c_str(), url.c_str(), params.c_str());
+	DLAPI::Log("execute %s - url:%s params:%s query:%s", method.c_str(), url.c_str(), params.c_str(), query.c_str());
 	curlRequest(method, url, headers, params, query);
 }

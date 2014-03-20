@@ -17,6 +17,27 @@ void DLAPI::Dictionary::clear()
 	json = cJSON_CreateObject();
 }
 
+std::string DLAPI::Dictionary::getKeyByIndex(int index)
+{
+	std::string r = "";
+	int i = 0;
+
+	cJSON* it = json->child;
+	while (it)
+	{
+		if (i == index)
+		{
+			r = std::string(it->string);
+			printf("%s\n", r.c_str());
+			break;
+		}
+		i++;
+		it = it->next;
+	}
+
+	return r;
+}
+
 void DLAPI::Dictionary::setString(std::string key, std::string value)
 {
 	cJSON* j = cJSON_CreateString(value.c_str()); 
@@ -53,6 +74,20 @@ double DLAPI::Dictionary::getNumber(std::string key)
 int DLAPI::Dictionary::getInt(std::string key)
 {
 	return (int)getNumber(key);
+}
+
+int DLAPI::Dictionary::size()
+{
+	int r = 0;
+
+	cJSON* it = json->child;
+	while (it)
+	{
+		r++;
+		it = it->next;
+	}
+
+	return r;
 }
 
 std::string DLAPI::Dictionary::toURLParams()

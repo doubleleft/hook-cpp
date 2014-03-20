@@ -16,7 +16,9 @@ namespace DLAPI
 		void setString(std::string key, std::string value);	
 		void setNumber(std::string key, double value);
 		void clear();
+		int size();
 
+		std::string getKeyByIndex(int index);
 		std::string getString(std::string key);
 		const char* getCString(std::string key);
 		double getNumber(std::string key);

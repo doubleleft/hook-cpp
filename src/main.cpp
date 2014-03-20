@@ -17,13 +17,12 @@ int main(int argc, char** argv)
 
     DLAPI::Collection collection2;
     collection2.name = "ranking";
-    collection2.params.setString("where", "user_id");
-    collection2.params.setString("value", "232");
     collection2.client = client;
-    
-    
-    std::string args = "{\"q\":[[\"name\",\"=\",\"mauro\"]]}";
-    collection2.fetch(args);
+    collection2.addQueryArg("_id", "=", 195);
+
+    collection2.fetch();
+    // std::string args = "{\"q\":[[\"_id\",\"=\",93]]}";
+    // collection2.fetch(args);
 
     // std::string args = DLAPI::Str::format("{\"where\":\"%s\",\"value\":%i}", "age", 32);
 

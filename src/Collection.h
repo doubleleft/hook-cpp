@@ -17,10 +17,14 @@ namespace DLAPI
 		DLAPI::Dictionary params;
 		DLAPI::Client* client;
 		DLAPI::Dictionary result;
+		DLAPI::Dictionary queryArgs;
 
 		std::string getSegments();
 		void create();
-		void fetch(std::string query);
+		void fetch();
+		void addQueryArg(std::string field, std::string operation, std::string value);
+		void addQueryArg(std::string field, std::string operation, int value);
+		std::string getQuery();
 	};
 }
 
