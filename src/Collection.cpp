@@ -18,7 +18,22 @@ void DLAPI::Collection::create()
 
 void DLAPI::Collection::fetch()
 {
-	client->request(DLAPI::Method::GET, getSegments(), &params, getQuery());
+	result.resize(0);
+	DLAPI::Request request = client->request(DLAPI::Method::GET, getSegments(), &params, getQuery());
+
+	cJSON* json = cJSON_Parse(request.response.c_str());
+	int size = cJSON_GetArraySize(json);
+
+	for (int i = 0; i < size; i++)
+	{
+		cJSON* item = cJSON_GetArrayItem(json, i);
+		DLAPI::Dictionary dict;
+		dict.fromJSONString(std::string(cJSON_Print(item)));
+		result.push_back(dict);
+	}
+
+	cJSON_Delete(json);
+	json = NULL;
 }
 
 std::string DLAPI::Collection::getSegments()

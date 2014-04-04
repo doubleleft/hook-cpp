@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Client.h"
 #include "Dictionary.h"
+#include "cJSON.h"
 
 namespace DLAPI
 {
@@ -16,7 +17,7 @@ namespace DLAPI
 		std::string name;
 		DLAPI::Dictionary params;
 		DLAPI::Client* client;
-		DLAPI::Dictionary result;
+		std::vector<DLAPI::Dictionary> result;
 		DLAPI::Dictionary queryArgs;
 
 		std::string getSegments();

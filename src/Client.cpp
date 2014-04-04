@@ -28,16 +28,16 @@ void DLAPI::Client::init(std::string url, std::string key, std::string appId)
 	headers.push_back(DLAPI::Str::format("X-App-Key: %s", key.c_str()));
 }
 
-DLAPI::Request* DLAPI::Client::request(std::string method, std::string segments, DLAPI::Dictionary* paramsDict, std::string query)
+DLAPI::Request DLAPI::Client::request(std::string method, std::string segments, DLAPI::Dictionary* paramsDict, std::string query)
 {
-	DLAPI::Request* request = new DLAPI::Request();
+	DLAPI::Request request;
 
-	request->query = query;
-	request->params = DLAPI::Str::format("{\"data\":%s}", paramsDict->toJSONString().c_str());
-	request->url = DLAPI::Str::format("%s/%s", url.c_str(), segments.c_str());
-	request->method = method;
-	request->headers = headers;
-	request->execute();
+	request.query = query;
+	request.params = DLAPI::Str::format("{\"data\":%s}", paramsDict->toJSONString().c_str());
+	request.url = DLAPI::Str::format("%s/%s", url.c_str(), segments.c_str());
+	request.method = method;
+	request.headers = headers;
+	request.execute();
 	
 	return request;
 }

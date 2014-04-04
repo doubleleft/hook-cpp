@@ -21,7 +21,7 @@ namespace DLAPI
 		std::string query;
 		std::vector<std::string> headers;
 		DLAPI::Dictionary* data;
-		void* response;
+		std::string response;
 		int error;
 
 		void execute();

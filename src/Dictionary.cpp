@@ -7,8 +7,8 @@ DLAPI::Dictionary::Dictionary()
 
 DLAPI::Dictionary::~Dictionary()
 {
-	if (json) cJSON_Delete(json);
-	json = NULL;
+	// if (json) cJSON_Delete(json);
+	// json = NULL;
 }
 
 void DLAPI::Dictionary::clear()
@@ -127,5 +127,5 @@ void DLAPI::Dictionary::fromJSONString(std::string str)
 {
 	if (json) cJSON_Delete(json);
 	json = cJSON_Parse(str.c_str());
-	printf("%s\n", cJSON_Print(json));
+	DLAPI::Log("fromJSONString %s\n", cJSON_Print(json));
 }
