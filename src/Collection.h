@@ -21,8 +21,10 @@ namespace DLAPI
 		DLAPI::Dictionary queryArgs;
 
 		std::string getSegments();
+		std::string getSegmentsWithId();
 		void create();
 		void fetch();
+		void update();
 		void addQueryArg(std::string field, std::string operation, std::string value);
 		void addQueryArg(std::string field, std::string operation, int value);
 		std::string getQuery();

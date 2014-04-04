@@ -32,6 +32,7 @@ static std::string curlRequest(std::string method, std::string url, std::vector<
 
 	const char* paramsStr = params.c_str();
 	const char* paramsEsc = curl_easy_escape(curl, paramsStr, strlen(paramsStr));
+	// printf("%s\n", paramsStr);
 
 	const char* queryStr = query.c_str();
 	const char* queryEsc = curl_easy_escape(curl, queryStr, strlen(queryStr));
@@ -41,10 +42,10 @@ static std::string curlRequest(std::string method, std::string url, std::vector<
 		url = DLAPI::Str::format("%s?%s", url.c_str(), queryEsc);		
 	}
 	
-	// curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headerList);
-	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, paramsEsc);
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, strlen(paramsEsc));
+	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, paramsStr);
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, strlen(paramsStr));
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, method.c_str());
 

@@ -36,9 +36,21 @@ void DLAPI::Collection::fetch()
 	json = NULL;
 }
 
+void DLAPI::Collection::update()
+{
+	DLAPI::Request request = client->request(DLAPI::Method::POST, getSegmentsWithId(), &params, getQuery());
+}
+
 std::string DLAPI::Collection::getSegments()
 {
-	return DLAPI::Str::format("collection/%s", name.c_str());
+	std::string service = DLAPI::Str::format("collection/%s", name.c_str());
+	return service;
+}
+
+std::string DLAPI::Collection::getSegmentsWithId()
+{
+	std::string service = DLAPI::Str::format("collection/%s/%s", name.c_str(), params.getString("_id").c_str());
+	return service;
 }
 
 void DLAPI::Collection::addQueryArg(std::string field, std::string operation, std::string value)
