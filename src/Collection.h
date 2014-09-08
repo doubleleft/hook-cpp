@@ -18,6 +18,7 @@ namespace DLAPI
         };
         
 		Collection();
+        Collection(DLAPI::Client *client);
 		~Collection();
 	
 		std::string name;

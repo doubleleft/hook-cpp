@@ -1,10 +1,13 @@
 #include "Collection.h"
 
-DLAPI::Collection::Collection()
+DLAPI::Collection::Collection() : name(""), client(NULL)
 {
-	name = "";
-	client = NULL;
 }
+
+DLAPI::Collection::Collection(DLAPI::Client *client) : client(client), name(""){
+
+}
+
 
 DLAPI::Collection::~Collection()
 {
