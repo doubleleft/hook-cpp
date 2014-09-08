@@ -13,15 +13,27 @@ DLAPI::Collection::~Collection()
 
 void DLAPI::Collection::create()
 {
+    if (client == NULL) {
+        std::cout << "no client set. aborting" << std::endl;
+        return;
+    }
 	client->request(DLAPI::Method::POST, getSegments(), &params, "");
 }
 
 void DLAPI::Collection::fetch()
 {
+    if (client == NULL) {
+        std::cout << "no client set. aborting" << std::endl;
+        return;
+    }
+    
 	result.resize(0);
 	DLAPI::Request request = client->request(DLAPI::Method::GET, getSegments(), &params, getQuery());
 
 	cJSON* json = cJSON_Parse(request.response.c_str());
+    if (json == NULL)
+        return;
+    
 	int size = cJSON_GetArraySize(json);
 
 	for (int i = 0; i < size; i++)
@@ -38,6 +50,10 @@ void DLAPI::Collection::fetch()
 
 void DLAPI::Collection::update()
 {
+    if (client == NULL) {
+        std::cout << "no client set. aborting" << std::endl;
+        return;
+    }
 	DLAPI::Request request = client->request(DLAPI::Method::POST, getSegmentsWithId(), &params, getQuery());
 }
 
@@ -65,11 +81,17 @@ void DLAPI::Collection::addQueryArg(std::string field, std::string operation, in
 	queryArgs.setString(DLAPI::Str::format("qa%i", size), DLAPI::Str::format("[\"%s\",\"%s\",%i]", field.c_str(), operation.c_str(), value));
 }
 
+void DLAPI::Collection::sort(std::string field, DLAPI::Collection::SortingOption operation)
+{
+    ordering.push_back(std::pair<std::string, SortingOption>(field, operation));
+}
+
 std::string DLAPI::Collection::getQuery()
 {
 	int size = queryArgs.size();
 	std::string str = "{\"q\":[";
 
+    // Query
 	for (int i = 0; i < size; i++)
 	{
 		if (i != 0) str = str.append(",");
@@ -77,8 +99,26 @@ std::string DLAPI::Collection::getQuery()
 		std::string val = queryArgs.getString(key);
 		str = str.append(val);
 	}
+	str = str.append("]");
 
-	str = str.append("]}");
+    // Sorting
+    if (ordering.size() > 0) {
+        str = str.append(", s: [");
+        for (int i = 0; i < ordering.size(); i++)
+        {
+            std::pair<std::string, SortingOption> p = ordering[i];
+            if (i != 0) str = str.append(",");
+            std::string key = p.first;
+            std::string val = p.second == Ascending ? "ASC" : "DESC";
+            str = str.append(DLAPI::Str::format("[\"%s\",\"%s\"]", key.c_str(), val.c_str()));
+        }
+    }
+
+    str = str.append("}");
 
 	return str;
 }
+
+
+
+

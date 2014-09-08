@@ -11,6 +11,12 @@ namespace DLAPI
 	class Collection
 	{
 	public:
+        
+        enum SortingOption{
+            Ascending,
+            Descending
+        };
+        
 		Collection();
 		~Collection();
 	
@@ -27,7 +33,11 @@ namespace DLAPI
 		void update();
 		void addQueryArg(std::string field, std::string operation, std::string value);
 		void addQueryArg(std::string field, std::string operation, int value);
+        void sort(std::string field, SortingOption order);
 		std::string getQuery();
+        
+    private:
+        std::vector<std::pair<std::string, SortingOption> > ordering;
 	};
 }
 
