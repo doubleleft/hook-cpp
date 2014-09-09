@@ -54,7 +54,7 @@ std::string DLAPI::Dictionary::getString(std::string key)
 {
 	std::string result = "";
 	cJSON* j = cJSON_GetObjectItem(json, key.c_str());
-	if (j) result = std::string(j->valuestring);
+	if (j && j->valuestring != NULL) result = std::string(j->valuestring);
 	return result;
 }
 
