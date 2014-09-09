@@ -106,15 +106,16 @@ std::string DLAPI::Collection::getQuery()
 
     // Sorting
     if (ordering.size() > 0) {
-        str = str.append(", s: [");
+        str = str.append(", \"s\": [");
         for (int i = 0; i < ordering.size(); i++)
         {
             std::pair<std::string, SortingOption> p = ordering[i];
             if (i != 0) str = str.append(",");
             std::string key = p.first;
-            std::string val = p.second == Ascending ? "ASC" : "DESC";
+            std::string val = p.second == Ascending ? "asc" : "desc";
             str = str.append(DLAPI::Str::format("[\"%s\",\"%s\"]", key.c_str(), val.c_str()));
         }
+        str = str.append("]");
     }
 
     str = str.append("}");
