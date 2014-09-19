@@ -1,131 +1,131 @@
 #include "Dictionary.h"
 
-DLAPI::Dictionary::Dictionary()
+Hook::Dictionary::Dictionary()
 {
-	json = cJSON_CreateObject();
+  json = cJSON_CreateObject();
 }
 
-DLAPI::Dictionary::~Dictionary()
+Hook::Dictionary::~Dictionary()
 {
-	// if (json) cJSON_Delete(json);
-	// json = NULL;
+  // if (json) cJSON_Delete(json);
+  // json = NULL;
 }
 
-void DLAPI::Dictionary::clear()
+void Hook::Dictionary::clear()
 {
-	if (json) cJSON_Delete(json);
-	json = cJSON_CreateObject();
+  if (json) cJSON_Delete(json);
+  json = cJSON_CreateObject();
 }
 
-std::string DLAPI::Dictionary::getKeyByIndex(int index)
+std::string Hook::Dictionary::getKeyByIndex(int index)
 {
-	std::string r = "";
-	int i = 0;
+  std::string r = "";
+  int i = 0;
 
-	cJSON* it = json->child;
-	while (it)
-	{
-		if (i == index)
-		{
-			r = std::string(it->string);
-			printf("%s\n", r.c_str());
-			break;
-		}
-		i++;
-		it = it->next;
-	}
+  cJSON* it = json->child;
+  while (it)
+  {
+    if (i == index)
+    {
+      r = std::string(it->string);
+      printf("%s\n", r.c_str());
+      break;
+    }
+    i++;
+    it = it->next;
+  }
 
-	return r;
+  return r;
 }
 
-void DLAPI::Dictionary::setString(std::string key, std::string value)
+void Hook::Dictionary::setString(std::string key, std::string value)
 {
-	cJSON* j = cJSON_CreateString(value.c_str()); 
-	cJSON_AddItemToObject(json, key.c_str(), j);
-}	
-
-void DLAPI::Dictionary::setNumber(std::string key, double value)
-{
-	cJSON* j = cJSON_CreateNumber(value);  
-	cJSON_AddItemToObject(json, key.c_str(), j);
+  cJSON* j = cJSON_CreateString(value.c_str());
+  cJSON_AddItemToObject(json, key.c_str(), j);
 }
 
-std::string DLAPI::Dictionary::getString(std::string key)
+void Hook::Dictionary::setNumber(std::string key, double value)
 {
-	std::string result = "";
-	cJSON* j = cJSON_GetObjectItem(json, key.c_str());
-	if (j && j->valuestring != NULL) result = std::string(j->valuestring);
-	return result;
+  cJSON* j = cJSON_CreateNumber(value);
+  cJSON_AddItemToObject(json, key.c_str(), j);
 }
 
-const char* DLAPI::Dictionary::getCString(std::string key)
+std::string Hook::Dictionary::getString(std::string key)
 {
-	return getString(key).c_str();
+  std::string result = "";
+  cJSON* j = cJSON_GetObjectItem(json, key.c_str());
+  if (j && j->valuestring != NULL) result = std::string(j->valuestring);
+  return result;
 }
 
-double DLAPI::Dictionary::getNumber(std::string key)
+const char* Hook::Dictionary::getCString(std::string key)
 {
-	double result = 0;
-	cJSON* j = cJSON_GetObjectItem(json, key.c_str());
-	if (j) result = j->valuedouble;
-	return result;
+  return getString(key).c_str();
 }
 
-int DLAPI::Dictionary::getInt(std::string key)
+double Hook::Dictionary::getNumber(std::string key)
 {
-	return (int)getNumber(key);
+  double result = 0;
+  cJSON* j = cJSON_GetObjectItem(json, key.c_str());
+  if (j) result = j->valuedouble;
+  return result;
 }
 
-int DLAPI::Dictionary::size()
+int Hook::Dictionary::getInt(std::string key)
 {
-	int r = 0;
-
-	cJSON* it = json->child;
-	while (it)
-	{
-		r++;
-		it = it->next;
-	}
-
-	return r;
+  return (int)getNumber(key);
 }
 
-std::string DLAPI::Dictionary::toURLParams()
+int Hook::Dictionary::size()
 {
-	std::string r = "";
+  int r = 0;
 
-	cJSON* it = json->child;
-	while (it)
-	{
-		std::string str = "";
-		const char* k = it->string;
+  cJSON* it = json->child;
+  while (it)
+  {
+    r++;
+    it = it->next;
+  }
 
-		switch (it->type)
-		{
-			case cJSON_Number:
-				str = DLAPI::Str::format("%s=%d", it->string, it->valueint);
-			break;
-			case cJSON_String:
-				str = DLAPI::Str::format("%s=%s", it->string, it->valuestring);
-			break;
-		}
-
-		r.append(str);
-		it = it->next;
-		if (it) r.append("&");
-	}
-
-	return r;
+  return r;
 }
 
-std::string DLAPI::Dictionary::toJSONString()
+std::string Hook::Dictionary::toURLParams()
 {
-	return std::string(cJSON_Print(json));
+  std::string r = "";
+
+  cJSON* it = json->child;
+  while (it)
+  {
+    std::string str = "";
+    const char* k = it->string;
+
+    switch (it->type)
+    {
+      case cJSON_Number:
+        str = Hook::Str::format("%s=%d", it->string, it->valueint);
+        break;
+      case cJSON_String:
+        str = Hook::Str::format("%s=%s", it->string, it->valuestring);
+        break;
+    }
+
+    r.append(str);
+    it = it->next;
+    if (it) r.append("&");
+  }
+
+  return r;
 }
 
-void DLAPI::Dictionary::fromJSONString(std::string str)
+std::string Hook::Dictionary::toJSONString()
 {
-	if (json) cJSON_Delete(json);
-	json = cJSON_Parse(str.c_str());
-	DLAPI::Log("fromJSONString %s\n", cJSON_Print(json));
+  return std::string(cJSON_Print(json));
+}
+
+void Hook::Dictionary::fromJSONString(std::string str)
+{
+  if (json) cJSON_Delete(json);
+  json = cJSON_Parse(str.c_str());
+  Hook::Log("fromJSONString %s\n", cJSON_Print(json));
 }

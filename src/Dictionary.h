@@ -1,36 +1,36 @@
-#ifndef dlapi_dictionary_h
-#define dlapi_dictionary_h
+#ifndef hook_dictionary_h
+#define hook_dictionary_h
 
 #include <iostream>
 #include "cJSON.h"
 #include "Tools.h"
 
-namespace DLAPI
+namespace Hook
 {
-	class Dictionary
-	{
-	public:
-		Dictionary();
-		~Dictionary();
+  class Dictionary
+  {
+    public:
+      Dictionary();
+      ~Dictionary();
 
-		void setString(std::string key, std::string value);	
-		void setNumber(std::string key, double value);
-		void clear();
-		int size();
+      void setString(std::string key, std::string value);
+      void setNumber(std::string key, double value);
+      void clear();
+      int size();
 
-		std::string getKeyByIndex(int index);
-		std::string getString(std::string key);
-		const char* getCString(std::string key);
-		double getNumber(std::string key);
-		int getInt(std::string key);
+      std::string getKeyByIndex(int index);
+      std::string getString(std::string key);
+      const char* getCString(std::string key);
+      double getNumber(std::string key);
+      int getInt(std::string key);
 
-		std::string toURLParams();
-		std::string toJSONString();
-		void fromJSONString(std::string str);
+      std::string toURLParams();
+      std::string toJSONString();
+      void fromJSONString(std::string str);
 
-	private:
-		cJSON* json;
-	};
+    private:
+      cJSON* json;
+  };
 }
 
 #endif

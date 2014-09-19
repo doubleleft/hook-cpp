@@ -1,5 +1,5 @@
-#ifndef dlapi_dlapi_h
-#define dlapi_dlapi_h
+#ifndef hook_hook_h
+#define hook_hook_h
 
 #include "Client.h"
 #include "Request.h"

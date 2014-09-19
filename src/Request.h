@@ -1,5 +1,5 @@
-#ifndef dlapi_request_h
-#define dlapi_request_h
+#ifndef Hook_request_h
+#define Hook_request_h
 
 #include <iostream>
 #include <vector>
@@ -7,25 +7,25 @@
 #include "Dictionary.h"
 #include "Tools.h"
 
-namespace DLAPI
+namespace Hook
 {
-	class Request
-	{
-	public:
-		Request();
-		~Request();
+  class Request
+  {
+    public:
+      Request();
+      ~Request();
 
-		std::string method;
-		std::string url;
-		std::string params;
-		std::string query;
-		std::vector<std::string> headers;
-		DLAPI::Dictionary* data;
-		std::string response;
-		int error;
+      std::string method;
+      std::string url;
+      std::string params;
+      std::string query;
+      std::vector<std::string> headers;
+      Hook::Dictionary* data;
+      std::string response;
+      int error;
 
-		void execute();
-	};
+      void execute();
+  };
 }
 
 #endif
